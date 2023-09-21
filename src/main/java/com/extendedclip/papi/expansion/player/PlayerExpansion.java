@@ -276,6 +276,7 @@ public final class PlayerExpansion extends PlaceholderExpansion implements Taska
                     case "has_empty_slot" -> p.getInventory().firstEmpty() > -1;
                     case "empty_slots" -> PlayerUtil.getEmptySlots(p);
                     case "can_pickup_items" -> p.getCanPickupItems();
+                    case "held_item_slot" -> p.getInventory().getHeldItemSlot();
 
                     case "item_in_hand","item_in_hand_name","item_in_hand_data","item_in_hand_durability",
                             "item_in_offhand","item_in_offhand_name","item_in_offhand_data","item_in_offhand_durability",
