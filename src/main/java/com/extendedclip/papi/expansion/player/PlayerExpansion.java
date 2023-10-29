@@ -27,7 +27,9 @@ import me.clip.placeholderapi.expansion.Configurable;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.clip.placeholderapi.expansion.Taskable;
 import org.bukkit.*;
+import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Directional;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -194,6 +196,41 @@ public final class PlayerExpansion extends PlaceholderExpansion implements Taska
                     };
                 }
 
+                if (identifier.startsWith("block_looking_at")) {
+                    int distance = 10;
+                    String[] args = identifier.split("_");
+                    if (identifier.startsWith("block_looking_at:"))
+                        distance = Integer.parseInt(args[2].substring(3));
+                    String arg = "type";
+                    if (args.length > 3) {
+                        args = Arrays.copyOfRange(args,3,args.length);
+                        arg = String.join("_",args).split("_")[0];
+                    }
+                    Block block = p.getTargetBlockExact(distance);
+                    yield switch (arg) {
+                        case "type" -> block == null ? "AIR" : block.getType().toString();
+                        case "direction" -> block != null && block.getBlockData() instanceof Directional directional ? directional.getFacing() : "NORTH";
+                        case "data" -> {
+                            if (block == null || block.getType().isAir()) yield "";
+                            String blockData = block.getBlockData().getAsString();
+                            if (!blockData.contains("[")) yield "";
+                            blockData = blockData.substring(blockData.indexOf("[")+1,blockData.length()-1);
+                            if (args.length == 1) yield blockData;
+
+                            String[] split = blockData.split(",");
+                            Map<String,String> data = new HashMap<>();
+                            for (String key : split) {
+                                String[] arr = key.split("=");
+                                data.put(arr[0],arr[1]);
+                            }
+                            String output = args[1];
+                            try {yield split[Integer.parseInt(output)];}
+                            catch (Exception e) {yield data.get(output);}
+                        }
+                        default -> null;
+                    };
+                }
+
                 yield switch (identifier) {
                     case "displayname" -> p.getDisplayName();
                     case "list_name" -> p.getPlayerListName();
@@ -210,7 +247,7 @@ public final class PlayerExpansion extends PlaceholderExpansion implements Taska
                     case "is_sprinting" -> p.isSprinting();
                     case "is_leashed" -> p.isLeashed();
                     case "is_inside_vehicle" -> p.isInsideVehicle();
-                    case "is_gliding" -> p.isGliding();
+                    case "is_gliding" -> p.isGliding(); // 1.9+
 
                     case "world" -> p.getWorld().getName();
                     case "world_type" -> switch (p.getWorld().getEnvironment()) {
