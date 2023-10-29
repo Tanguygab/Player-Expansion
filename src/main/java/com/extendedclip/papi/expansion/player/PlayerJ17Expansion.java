@@ -223,9 +223,12 @@ public final class PlayerJ17Expansion extends PlaceholderExpansion implements Ta
                                 String[] arr = key.split("=");
                                 data.put(arr[0],arr[1]);
                             }
-                            String output = args[1];
-                            try {yield split[Integer.parseInt(output)];}
-                            catch (Exception e) {yield data.get(output);}
+                            String key = args[1];
+                            try {
+                                int index = Integer.parseInt(key);
+                                yield split.length > index && index >= 0 ? split[index] : "";
+                            }
+                            catch (Exception e) {yield data.getOrDefault(key,"");}
                         }
                         default -> null;
                     };
