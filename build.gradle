@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'com.extendedclip.papi'
-version = '2.1.0'
+version = '2.1.1'
 
 repositories {
     mavenCentral()
@@ -18,7 +18,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.20.2-R0.1-SNAPSHOT'
     compileOnly 'me.clip:placeholderapi:2.11.3'
     compileOnly 'org.projectlombok:lombok:1.18.28'
     annotationProcessor 'org.projectlombok:lombok:1.18.28'

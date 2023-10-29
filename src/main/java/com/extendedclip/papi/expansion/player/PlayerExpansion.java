@@ -45,7 +45,7 @@ public final class PlayerExpansion extends PlaceholderExpansion implements Taska
 
     @Getter private final String identifier = "player";
     @Getter private final String author = "clip";
-    @Getter private final String version = "2.1.0";
+    @Getter private final String version = "2.1.1";
     @Getter private final Map<String, Object> defaults;
 
     private final SimpleDateFormat dateFormat = PlaceholderAPIPlugin.getDateFormat();
