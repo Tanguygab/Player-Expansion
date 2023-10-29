@@ -135,6 +135,7 @@ public final class PlayerExpansion extends PlaceholderExpansion implements Taska
             case "last_played_formatted", "last_join_date" -> dateFormat.format(new Date(player.getLastPlayed()));
             case "time_since_last_played", "time_since_last_join" -> PlayerUtil.msToSToStr(player.getLastPlayed());
             case "bed_x", "bed_y", "bed_z", "bed_world" -> PlayerUtil.getLocation(player.getBedSpawnLocation(),identifier.substring(4));
+            case "death_x", "death_y", "death_z", "death_world" -> PlayerUtil.getLocation(player.getLastDeathLocation(),identifier.substring(6)); // 1.19+
             default -> {
                 // online placeholders
                 if (!player.isOnline()) yield "";
@@ -209,6 +210,7 @@ public final class PlayerExpansion extends PlaceholderExpansion implements Taska
                     case "is_sprinting" -> p.isSprinting();
                     case "is_leashed" -> p.isLeashed();
                     case "is_inside_vehicle" -> p.isInsideVehicle();
+                    case "is_gliding" -> p.isGliding();
 
                     case "world" -> p.getWorld().getName();
                     case "world_type" -> switch (p.getWorld().getEnvironment()) {
