@@ -41,11 +41,11 @@ import org.bukkit.potion.PotionEffectType;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-public final class PlayerExpansion extends PlaceholderExpansion implements Taskable, Configurable {
+public final class PlayerJ17Expansion extends PlaceholderExpansion implements Taskable, Configurable {
 
-    @Getter private final String identifier = "player";
-    @Getter private final String author = "clip";
-    @Getter private final String version = "2.1.1";
+    @Getter private final String identifier = "player-j17";
+    @Getter private final String author = "Tanguygab";
+    @Getter private final String version = "1.0.1";
     @Getter private final Map<String, Object> defaults;
 
     private final SimpleDateFormat dateFormat = PlaceholderAPIPlugin.getDateFormat();
@@ -57,7 +57,7 @@ public final class PlayerExpansion extends PlaceholderExpansion implements Taska
     final Map<Player, Long> joinTimes = new HashMap<>();
     final Map<Player,Double> damagesGiven = new HashMap<>();
 
-    public PlayerExpansion() {
+    public PlayerJ17Expansion() {
         defaults = new HashMap<>() {{
             put("ping",new HashMap<>() {{
                 put("-1", "&c");

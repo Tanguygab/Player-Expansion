@@ -7,7 +7,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
-public record PlayerListener(PlayerExpansion expansion) implements Listener {
+public record PlayerListener(PlayerJ17Expansion expansion) implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
