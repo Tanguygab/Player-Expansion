@@ -45,7 +45,7 @@ public final class PlayerJ17Expansion extends PlaceholderExpansion implements Ta
 
     @Getter private final String identifier = "player-j17";
     @Getter private final String author = "Tanguygab";
-    @Getter private final String version = "1.0.1";
+    @Getter private final String version = "1.0.2";
     @Getter private final Map<String, Object> defaults;
 
     private final SimpleDateFormat dateFormat = PlaceholderAPIPlugin.getDateFormat();
@@ -199,16 +199,25 @@ public final class PlayerJ17Expansion extends PlaceholderExpansion implements Ta
                 if (identifier.startsWith("block_looking_at")) {
                     int distance = 10;
                     String[] args = identifier.split("_");
-                    if (identifier.startsWith("block_looking_at:"))
-                        distance = Integer.parseInt(args[2].substring(3));
+                    FluidCollisionMode fluidMode = FluidCollisionMode.NEVER;
+                    if (identifier.startsWith("block_looking_at:")) {
+                        String[] blockArgs = args[2].split(":");
+                        if (blockArgs.length > 1) distance = Integer.parseInt(blockArgs[1]);
+                        if (blockArgs.length > 2) fluidMode = switch (blockArgs[2]) {
+                            case "fluids" -> FluidCollisionMode.ALWAYS;
+                            case "sources" -> FluidCollisionMode.SOURCE_ONLY;
+                            default -> FluidCollisionMode.NEVER;
+                        };
+                    }
                     String arg = "type";
                     if (args.length > 3) {
                         args = Arrays.copyOfRange(args,3,args.length);
                         arg = String.join("_",args).split("_")[0];
                     }
-                    Block block = p.getTargetBlockExact(distance);
+                    Block block = p.getTargetBlockExact(distance,fluidMode);
                     yield switch (arg) {
                         case "type" -> block == null ? "AIR" : block.getType().toString();
+                        case "x","y","z" -> block == null ? "" : PlayerUtil.getLocation(block.getLocation(),"block_"+arg);
                         case "direction" -> block != null && block.getBlockData() instanceof Directional directional ? directional.getFacing() : "NORTH";
                         case "data" -> {
                             if (block == null || block.getType().isAir()) yield "";
