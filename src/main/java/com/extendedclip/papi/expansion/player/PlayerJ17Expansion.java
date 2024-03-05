@@ -45,7 +45,7 @@ public final class PlayerJ17Expansion extends PlaceholderExpansion implements Ta
 
     @Getter private final String identifier = "player-j17";
     @Getter private final String author = "Tanguygab";
-    @Getter private final String version = "1.0.2";
+    @Getter private final String version = "1.0.3";
     @Getter private final Map<String, Object> defaults;
 
     private final SimpleDateFormat dateFormat = PlaceholderAPIPlugin.getDateFormat();
