@@ -253,6 +253,8 @@ public final class PlayerJ17Expansion extends PlaceholderExpansion implements Ta
                     case "colored_ping" -> retrievePing(p, true);
 
                     case "is_sleeping" -> p.isSleeping();
+                    case "is_burning" -> p.getFireTicks() > 1;
+                    case "is_freezing" -> p.getFreezeTicks() > 1;
                     case "is_conversing" -> p.isConversing();
                     case "is_dead" -> p.isDead();
                     case "is_sneaking" -> p.isSneaking();
@@ -321,6 +323,8 @@ public final class PlayerJ17Expansion extends PlaceholderExpansion implements Ta
                     case "remaining_air" -> p.getRemainingAir();
                     case "max_no_damage_ticks" -> p.getMaximumNoDamageTicks();
                     case "no_damage_ticks" -> p.getNoDamageTicks();
+                    case "burning_ticks" -> p.getFireTicks();
+                    case "freezing_ticks" -> p.getFreezeTicks();
                     case "last_damage", "last_damage_taken" -> p.getLastDamage();
                     case "last_damage_given" -> damagesGiven.getOrDefault(p,0D);
 
